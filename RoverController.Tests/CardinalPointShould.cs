@@ -11,7 +11,7 @@ namespace RoverController.Tests
     public class CardinalPointShould
     {
         [Fact()]
-        public void BeTrueWhenTheValueExists()
+        public void BeTrueWhenStringValueExists()
         {
             string value = "N";
 
@@ -19,7 +19,7 @@ namespace RoverController.Tests
         }
 
         [Fact()]
-        public void HaveAParsedValueWhenTheValueExists()
+        public void HaveAParsedValueWhenStringValueExists()
         {
             string value = "S";
 
@@ -29,7 +29,7 @@ namespace RoverController.Tests
         }
 
         [Fact()]
-        public void BeFalseWhenTheValueDoesNotExists()
+        public void BeFalseWhenStringValueDoesNotExists()
         {
             string value = "A";
 
@@ -37,11 +37,37 @@ namespace RoverController.Tests
         }
 
         [Fact()]
-        public void BeFalseWhenTheValueIsInvalid()
+        public void BeFalseWhenStringValueIsInvalid()
         {
             string value = null;
 
             Assert.False(CardinalPoint.TryParse(value, out CardinalPoint _));
+        }
+
+        [Fact()]
+        public void BeTrueWhenNumericValueExists()
+        {
+            int numericValue = 1;
+
+            Assert.True(CardinalPoint.TryParse(numericValue, out CardinalPoint _));
+        }
+
+        [Fact()]
+        public void HaveAParsedValueWhenNumericValueExists()
+        {
+            int numericValue = 3;
+
+            CardinalPoint.TryParse(numericValue, out CardinalPoint parsed);
+
+            Assert.Equal(CardinalPoint.West, parsed);
+        }
+
+        [Fact()]
+        public void BeFalseWhenNumericValueDoesNotExists()
+        {
+            int numericValue = 6;
+
+            Assert.False(CardinalPoint.TryParse(numericValue, out CardinalPoint _));
         }
     }
 }

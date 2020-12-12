@@ -12,16 +12,16 @@ namespace RoverController
         /// <summary>
         /// Advance
         /// </summary>
-        A = 0,
+        A,
 
         /// <summary>
         /// Turn Left
         /// </summary>
-        L = -1,
+        L,
 
         /// <summary>
         /// Turn Right
         /// </summary>
-        R = 1
+        R
     }
 }
