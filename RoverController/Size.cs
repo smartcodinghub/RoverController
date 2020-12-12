@@ -7,6 +7,9 @@ namespace RoverController
         public int Height { get; private set; }
         public int Width { get; private set; }
 
+        /// <summary>
+        /// If the size is empty (No width nor height)
+        /// </summary>
         public bool IsEmpty => this.Height == 0 && this.Width == 0;
 
         public Size(int height, int width)
@@ -15,6 +18,11 @@ namespace RoverController
             this.Width = width;
         }
 
+        /// <summary>
+        /// If the given point is inside the square
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
         public bool IsWithinBounds(Coordinates point) => point.X >= 0 && point.Y >= 0 &&
             point.X <= this.Width && point.Y <= this.Height;
 

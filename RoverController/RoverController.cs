@@ -20,10 +20,20 @@ namespace RoverController
             this.CurrentCardinalPoint = initialOrientation;
         }
 
-        public bool Handle(Commands[] command) => command.All(Move);
+        /// <summary>
+        /// Handles many commands
+        /// </summary>
+        /// <param name="commands"></param>
+        /// <returns>If a command doesn't fails.</returns>
+        public bool Handle(Commands[] commands) => commands.All(Move);
 
         public override string ToString() => $"{this.CurrentCardinalPoint}, {this.CurrentCoordinates}";
 
+        /// <summary>
+        /// Executes one command
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns>If the command doesn't fail</returns>
         private bool Move(Commands command)
         {
             switch (command)

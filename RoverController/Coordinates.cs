@@ -2,6 +2,9 @@
 
 namespace RoverController
 {
+    /// <summary>
+    /// Represents the X, Y coordinates in a 2D space.
+    /// </summary>
     public class Coordinates : IEquatable<Coordinates>
     {
         public int X { get; private set; }
@@ -13,6 +16,11 @@ namespace RoverController
             this.Y = y;
         }
 
+        /// <summary>
+        /// Adds two coordinates and returns a new one.
+        /// </summary>
+        /// <param name="toAdd"></param>
+        /// <returns></returns>
         public Coordinates Add(Coordinates toAdd) => new Coordinates(this.X + toAdd.X, this.Y + toAdd.Y);
 
         public override int GetHashCode() => HashCode.Combine(this.X, this.Y);
