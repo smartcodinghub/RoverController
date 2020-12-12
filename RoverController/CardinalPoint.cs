@@ -77,12 +77,14 @@ namespace RoverController
             int numericValue = this.Number;
 
             /* Using modulo operator so we are always repeating the same values (0,1,2,3,0,1,2,3) */
-            int newCardinalPointNumericValue = (cardinalPointsCount + (numericValue - (int)rotation)) % cardinalPointsCount;
+            int newCardinalPointNumericValue = (cardinalPointsCount + (numericValue + (int)rotation)) % cardinalPointsCount;
 
             /* This will always be true in this context */
             TryParse(newCardinalPointNumericValue, out CardinalPoint newCardinalPoint);
 
             return newCardinalPoint;
         }
+
+        public override string ToString() => this.Acronym;
     }
 }

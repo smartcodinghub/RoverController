@@ -18,5 +18,8 @@ namespace RoverController
             this.Height = height;
             this.Width = width;
         }
+
+        public bool IsWithinBounds(Coordinates point) => point.X >= 0 && point.Y >= 0 &&
+            point.X <= this.Width && point.Y <= this.Height;
     }
 }

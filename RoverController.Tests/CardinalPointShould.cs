@@ -69,5 +69,17 @@ namespace RoverController.Tests
 
             Assert.False(CardinalPoint.TryParse(numericValue, out CardinalPoint _));
         }
+
+        [Fact()]
+        public void RotateClockwiseFromNorthToEast()
+        {
+            Assert.Equal(CardinalPoint.East, CardinalPoint.North.Rotate(CardinalPoint.Rotation.Clockwise));
+        }
+
+        [Fact()]
+        public void RotateCounterClockwiseFromWestToSouth()
+        {
+            Assert.Equal(CardinalPoint.South, CardinalPoint.West.Rotate(CardinalPoint.Rotation.CounterClockwise));
+        }
     }
 }

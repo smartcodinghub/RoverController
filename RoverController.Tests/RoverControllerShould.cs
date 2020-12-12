@@ -31,45 +31,107 @@ namespace RoverController.Tests
         [Fact]
         public void BeTrueWhenAllCommandsIsInBounds()
         {
-            throw new XunitException("Not Implemented");
+            RoverController controller = new RoverController(new Size(10, 10), new Coordinates(0, 0), CardinalPoint.North);
+            Commands[] commands = new[] { Commands.A, Commands.A, Commands.A };
+
+            Assert.True(controller.Handle(commands));
         }
 
         [Fact]
         public void BeFalseWhenAnyCommandIsOutBounds()
         {
-            throw new XunitException("Not Implemented");
-        }
+            RoverController controller = new RoverController(new Size(2, 2), new Coordinates(0, 0), CardinalPoint.North);
+            Commands[] commands = new[] { Commands.A, Commands.A, Commands.A };
 
-        [Fact]
-        public void ThrowWhenCommandIsInvalid()
-        {
-            throw new XunitException("Not Implemented");
-        }
-
-        [Fact]
-        public void BeTrueWhenPointIsInSquare()
-        {
-            RoverController controller = new RoverController(new Size(10, 10), new Coordinates(0, 0), CardinalPoint.North);
-
-            throw new XunitException("Not Implemented");
-        }
-
-        [Fact]
-        public void BeTrueWhenPointIsNotInSquare()
-        {
-            throw new XunitException("Not Implemented");
-        }
-
-        [Fact]
-        public void MoveToTheNextPositionIfInBounds()
-        {
-            throw new XunitException("Not Implemented");
+            Assert.False(controller.Handle(commands));
         }
 
         [Fact]
         public void MoveToTheNextPositionWithinBounds()
         {
-            throw new XunitException("Not Implemented");
+            RoverController controller = new RoverController(new Size(10, 10), new Coordinates(0, 0), CardinalPoint.North);
+            Commands[] commands = new[] { Commands.A, Commands.A, Commands.A };
+
+            controller.Handle(commands);
+
+            Assert.Equal(new Coordinates(0, 3), controller.CurrentCoordinates);
+        }
+
+        [Fact]
+        public void NotMoveToTheNextPositionWhenACommandIsOutOfBounds()
+        {
+            RoverController controller = new RoverController(new Size(2, 2), new Coordinates(0, 0), CardinalPoint.North);
+            Commands[] commands = new[] { Commands.A, Commands.A, Commands.L, Commands.A, Commands.A };
+
+            controller.Handle(commands);
+
+            Assert.Equal(new Coordinates(0, 2), controller.CurrentCoordinates);
+        }
+
+        [Fact]
+        public void RotateRightFromNorthToEastOnRCommand()
+        {
+            RoverController controller = new RoverController(new Size(10, 10), new Coordinates(0, 0), CardinalPoint.North);
+            Commands[] commands = new[] { Commands.R };
+
+            controller.Handle(commands);
+
+            Assert.Equal(CardinalPoint.East, controller.CurrentCardinalPoint);
+        }
+
+        [Fact]
+        public void RotateLeftFromWestToSouthOnLCommand()
+        {
+            RoverController controller = new RoverController(new Size(10, 10), new Coordinates(0, 0), CardinalPoint.West);
+            Commands[] commands = new[] { Commands.L };
+
+            controller.Handle(commands);
+
+            Assert.Equal(CardinalPoint.South, controller.CurrentCardinalPoint);
+        }
+
+        [Fact]
+        public void IncreaseYWhenAdvanceToNorth()
+        {
+            RoverController controller = new RoverController(new Size(2, 2), new Coordinates(0, 0), CardinalPoint.North);
+            Commands[] commands = new[] { Commands.A };
+
+            controller.Handle(commands);
+
+            Assert.Equal(new Coordinates(0, 1), controller.CurrentCoordinates);
+        }
+
+        [Fact]
+        public void DecreaseYWhenAdvanceToSouth()
+        {
+            RoverController controller = new RoverController(new Size(2, 2), new Coordinates(0, 1), CardinalPoint.South);
+            Commands[] commands = new[] { Commands.A };
+
+            controller.Handle(commands);
+
+            Assert.Equal(new Coordinates(0, 0), controller.CurrentCoordinates);
+        }
+
+        [Fact]
+        public void IncreaseXWhenAdvanceToEast()
+        {
+            RoverController controller = new RoverController(new Size(2, 2), new Coordinates(0, 0), CardinalPoint.East);
+            Commands[] commands = new[] { Commands.A };
+
+            controller.Handle(commands);
+
+            Assert.Equal(new Coordinates(1,0), controller.CurrentCoordinates);
+        }
+
+        [Fact]
+        public void DecreaseXWhenAdvanceToWest()
+        {
+            RoverController controller = new RoverController(new Size(2, 2), new Coordinates(1, 0), CardinalPoint.West);
+            Commands[] commands = new[] { Commands.A };
+
+            controller.Handle(commands);
+
+            Assert.Equal(new Coordinates(0, 0), controller.CurrentCoordinates);
         }
     }
 }
