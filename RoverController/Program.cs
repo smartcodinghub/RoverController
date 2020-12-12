@@ -5,12 +5,13 @@ namespace RoverController
 {
     public static class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             Console.WriteLine("Welcome to the Rover Controller!");
 
             try
             {
+                /* Ask for the initial values */
                 string sizeLine = ReadLine("Enter the size of the square (Width Height):");
                 Size size = ParseSize(sizeLine);
 
@@ -19,6 +20,24 @@ namespace RoverController
 
                 string cardinalPointLine = ReadLine($"Enter the initial orientation ({string.Join(", ", CardinalPoint.All.Select(cp => cp.ToString()))}):");
                 CardinalPoint cardinalPoint = ParseCardinalPoint(cardinalPointLine);
+
+                RoverController controller = new RoverController(size, coordinates, cardinalPoint);
+
+                /* Ask for commands until empty line. */
+                string commandLine = null;
+                string commandLineMessage = $"Enter one or more commands without any separation ({string.Join(", ", Enum.GetValues<Commands>())}):";
+                while (!string.IsNullOrEmpty(commandLine = ReadLine(commandLineMessage)))
+                {
+                    Commands[] commands = ParseCommands(commandLine);
+
+                    if (!controller.Handle(commands))
+                    {
+                        Console.WriteLine($"False, {controller.CurrentCardinalPoint}, {controller.CurrentCoordinates}.");
+                        return;
+                    }
+                }
+
+                Console.WriteLine($"True, {controller.CurrentCardinalPoint}, {controller.CurrentCoordinates}.");
             }
             catch (Exception ex)
             {
@@ -62,6 +81,17 @@ namespace RoverController
                 throw new ArgumentException($"The orientation must be one of the following values ({string.Join(", ", CardinalPoint.All.Select(cp => cp.ToString()))})!");
 
             return parsed;
+        }
+
+        public static Commands[] ParseCommands(string commandLine)
+        {
+            return commandLine.Select(c => c switch
+            {
+                'A' => Commands.A,
+                'L' => Commands.L,
+                'R' => Commands.R,
+                _ => throw new ArgumentException("Invalid command value!"),
+            }).ToArray();
         }
 
         private static string ReadLine(string message)

@@ -23,7 +23,7 @@ namespace RoverController.Tests
         }
 
         [Fact()]
-        public void ParseCoordinatesTest()
+        public void ParseCoordinatesWhenFormatIsCorrect()
         {
             Assert.Equal(new Coordinates(20, 20), Program.ParseCoordinates("20, 20"));
         }
@@ -35,7 +35,7 @@ namespace RoverController.Tests
         }
 
         [Fact()]
-        public void ParseCardinalPointTest()
+        public void ParseCardinalPointWhenFormatIsCorrect()
         {
             Assert.Equal(CardinalPoint.North, Program.ParseCardinalPoint("N"));
         }
@@ -44,6 +44,18 @@ namespace RoverController.Tests
         public void ThrowWhenParseCardinalPointDoesNotExists()
         {
             Assert.Throws<ArgumentException>(() => Program.ParseCardinalPoint("A"));
+        }
+
+        [Fact()]
+        public void ParseCommandsWhenFormatIsCorrect()
+        {
+            Assert.Equal(new[] { Commands.A, Commands.L, Commands.R }, Program.ParseCommands("ALR"));
+        }
+
+        [Fact()]
+        public void ThrowWhenParseCommandsDoesNotExists()
+        {
+            Assert.Throws<ArgumentException>(() => Program.ParseCommands("ALRJ"));
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 
 namespace RoverController
 {
@@ -68,10 +65,9 @@ namespace RoverController
         }
 
         /// <summary>
-        /// Parses a string to a CardinalPoint
+        /// Rotates the cardinal point
         /// </summary>
-        /// <param name="value">string to parse</param>
-        /// <param name="parsed">parsed cardinal point</param>
+        /// <param name="rotation"></param>
         public CardinalPoint Rotate(Rotation rotation)
         {
             int numericValue = this.Number;
